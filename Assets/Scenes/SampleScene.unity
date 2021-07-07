@@ -714,7 +714,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1. Mouse middle click and drag to pan
+  m_Text: '1. Mouse middle click and drag to pan
+
+    2. Scroll to zoom
+
+    3. Left
+    click drag to rotate'
 --- !u!222 &1488197202
 CanvasRenderer:
   m_ObjectHideFlags: 0

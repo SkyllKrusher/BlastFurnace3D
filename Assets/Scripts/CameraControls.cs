@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraControls : MonoBehaviour
 {
     private Camera cam;
-    private static readonly float panSpeed = 100f;
+    private static readonly float panSpeed = 1000f;
     private static readonly float zoomSpeed = 50f;
     private static readonly float rotSpeed = 100f;
     // private static readonly float[] BoundsX = new float[]{-10f, 10f};
@@ -71,9 +71,16 @@ public class CameraControls : MonoBehaviour
     private void RotateCamera(Vector3 newRotPos)
     {
         Vector3 drag = cam.ScreenToViewportPoint(lastRotPos - newRotPos);
-        Vector3 rot = new Vector3 (drag.y, -drag.x, 0);
+        // Vector3 rot = new Vector3 (drag.y, -drag.x, 0);
+        // transform.RotateAround(Vector3.zero, rot, rotSpeed *Time.deltaTime);
         
-        transform.RotateAround(Vector3.zero, rot, rotSpeed *Time.deltaTime);
+        Vector3 rot = new Vector3 (-drag.y, drag.x, 0) * rotSpeed;
+
+        transform.Rotate(rot);
+        
+        Quaternion newRot = transform.rotation;
+        newRot.eulerAngles = new Vector3(newRot.eulerAngles.x, newRot.eulerAngles.y, 0);
+        transform.rotation = newRot;
 
         lastRotPos = newRotPos;
     }
