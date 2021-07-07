@@ -65,7 +65,7 @@ public class CameraControls : MonoBehaviour
     {
         Vector3 move = new Vector3 (0, 0, Input.mouseScrollDelta.y * zoomSpeed * Time.deltaTime);
 
-        transform.Translate(move, Space.World);
+        transform.Translate(move, Space.Self);
     }
 
     private void RotateCamera(Vector3 newRotPos)
