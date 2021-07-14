@@ -71,21 +71,22 @@ public class CameraControls : MonoBehaviour
     private void RotateCamera(Vector3 newRotPos)
     {
         Vector3 drag = cam.ScreenToViewportPoint(lastRotPos - newRotPos);
-        // Vector3 rot = new Vector3 (drag.y, -drag.x, 0);
-        // transform.RotateAround(Vector3.zero, rot, rotSpeed *Time.deltaTime);
+        Vector3 rot = new Vector3 (drag.y, -drag.x, 0);
+        transform.RotateAround(Vector3.zero, rot, rotSpeed *Time.deltaTime);
         
-        Vector3 rot = new Vector3 (-drag.y, drag.x, 0) * rotSpeed;
 
-        transform.Rotate(rot);
+        // Vector3 rot = new Vector3 (-drag.y, drag.x, 0) * rotSpeed;
+        // transform.Rotate(rot);
         
+        // // if(newRot.x>89.9f)
+        // // {
+        // //     newRot.x = 90f;
+        // // }
+
         Quaternion newRot = transform.rotation;
-        // if(newRot.x>89.9f)
-        // {
-        //     newRot.x = 90f;
-        // }
         newRot.eulerAngles = new Vector3(newRot.eulerAngles.x, newRot.eulerAngles.y, 0);
-        Debug.Log("rot angle = " + newRot.eulerAngles);
         transform.rotation = newRot;
+        // Debug.Log("rot angle = " + newRot.eulerAngles);
 
         lastRotPos = newRotPos;
     }
