@@ -79,7 +79,12 @@ public class CameraControls : MonoBehaviour
         transform.Rotate(rot);
         
         Quaternion newRot = transform.rotation;
+        // if(newRot.x>89.9f)
+        // {
+        //     newRot.x = 90f;
+        // }
         newRot.eulerAngles = new Vector3(newRot.eulerAngles.x, newRot.eulerAngles.y, 0);
+        Debug.Log("rot angle = " + newRot.eulerAngles);
         transform.rotation = newRot;
 
         lastRotPos = newRotPos;
