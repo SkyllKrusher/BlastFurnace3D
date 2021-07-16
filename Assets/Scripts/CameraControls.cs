@@ -52,11 +52,11 @@ public class CameraControls : MonoBehaviour
         Vector3 move = new Vector3 (drag.x, drag.y, 0) * panSpeed * Time.deltaTime;
         transform.Translate(move, Space.Self);
 
-        Vector3 pos = transform.position;
+        //Vector3 pos = transform.position;
         // pos.x = Mathf.Clamp(pos.x, BoundsX[0], BoundsX[1]);
         // pos.y = Mathf.Clamp(pos.y, BoundsY[0], BoundsY[1]);
         // pos.z = Mathf.Clamp(pos.z, BoundsZ[0], BoundsZ[1]);
-        transform.position = pos;
+        //transform.position = pos;
 
         lastPanPos = newPanPos;
     }
