@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class CameraControls : MonoBehaviour
 {
-    private Camera cam;
-    private static readonly float panSpeed = 1000f;
-    private static readonly float zoomSpeed = 50f;
-    private static readonly float rotSpeed = 100f;
+    [Header("Scene References")]
+    [SerializeField] private GameObject camSphereParent;
+    [SerializeField] private Transform camTransform;
+    [SerializeField] private Camera cam;
+    [Header("Sensitivity")]
+    [SerializeField] private float panSpeed;
+    [SerializeField] private float zoomSpeed;
+    [SerializeField] private float rotSpeed;
     // private static readonly float[] BoundsX = new float[]{-10f, 10f};
     // private static readonly float[] BoundsY = new float[]{-10f, 10f};
     // private static readonly float[] BoundsZ = new float[]{-10f, 10f};
     private Vector3 lastPanPos;
     private Vector3 lastRotPos;
-    private void Awake()
-    {
-        cam = GetComponent<Camera>();
-    }
 
     private void Update()
     {
@@ -50,7 +50,7 @@ public class CameraControls : MonoBehaviour
     {
         Vector3 drag = cam.ScreenToViewportPoint(lastPanPos - newPanPos);
         Vector3 move = new Vector3 (drag.x, drag.y, 0) * panSpeed * Time.deltaTime;
-        transform.Translate(move, Space.Self);
+        camSphereParent.transform.Translate(move, Space.Self);
 
         //Vector3 pos = transform.position;
         // pos.x = Mathf.Clamp(pos.x, BoundsX[0], BoundsX[1]);
@@ -65,14 +65,14 @@ public class CameraControls : MonoBehaviour
     {
         Vector3 move = new Vector3 (0, 0, Input.mouseScrollDelta.y * zoomSpeed * Time.deltaTime);
 
-        transform.Translate(move, Space.Self);
+        camTransform.Translate(move, Space.Self);
     }
 
     private void RotateCamera(Vector3 newRotPos)
     {
         Vector3 drag = cam.ScreenToViewportPoint(lastRotPos - newRotPos);
-        Vector3 rot = new Vector3 (drag.y, -drag.x, 0);
-        transform.RotateAround(Vector3.zero, rot, rotSpeed *Time.deltaTime);
+        Vector3 rot = new Vector3 (drag.y, -drag.x, 0) * rotSpeed;
+        camSphereParent.transform.Rotate(rot);
         
 
         // Vector3 rot = new Vector3 (-drag.y, drag.x, 0) * rotSpeed;
@@ -83,9 +83,9 @@ public class CameraControls : MonoBehaviour
         // //     newRot.x = 90f;
         // // }
 
-        Quaternion newRot = transform.rotation;
+        Quaternion newRot = camSphereParent.transform.rotation;
         newRot.eulerAngles = new Vector3(newRot.eulerAngles.x, newRot.eulerAngles.y, 0);
-        transform.rotation = newRot;
+        camSphereParent.transform.rotation = newRot;
         // Debug.Log("rot angle = " + newRot.eulerAngles);
 
         lastRotPos = newRotPos;
